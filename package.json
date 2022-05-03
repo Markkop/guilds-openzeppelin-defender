@@ -1,5 +1,15 @@
 {
-  "name": "hardhat-project",
+  "name": "guilds-openzeppelin-defender",
+  "scripts": {
+    "test": "hardhat test",
+    "deploy:localhost": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
+    "verify": "hardhat verify",
+    "test:rinkeby": "hardhat test --network rinkeby",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "node": "hardhat node",
+    "typechain": "hardhat typechain"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
