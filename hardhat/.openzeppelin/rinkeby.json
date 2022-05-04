@@ -44,6 +44,41 @@
       "address": "0xcf48bE3E5Fa511E330f657DAD2FCB7C10D114A76",
       "txHash": "0x01d9d8f774aa857efa9359bb2016e8aab0c36f9691059bbac1ea69f019159cf9",
       "kind": "transparent"
+    },
+    {
+      "address": "0xF176cC15B7ad65Db231881a73A389d0dd1582137",
+      "txHash": "0xa21a0ef19b35f23cb0fabc1b5bc450e4d92a4c4c1c79f20668345457d8f39b16",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xD0BBDeC63acB79225224fAA08dD9BcEd7c4AeB88",
+      "txHash": "0xc5d3047a1e1c3e42e6562cb2579ec3f0a088546474caaed276aa545311c81709",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6b2d11493f881A7598A173E530A232d967c6Cd9c",
+      "txHash": "0x67cb4d870cf8665c65d1f7798ce8e7bd3cb2c7c161649d6aa52f273b4ad6704f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xA5d2faADe3D43c8B2164B87722e07E5cc956bCDe",
+      "txHash": "0x0102b8a31eca9ea409a99009e798b774f5514a0b88b0758487c44fe9a8da4136",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xBa62d6010B74b4C6bD2E8a68a01C2fB8685f1fC1",
+      "txHash": "0xc5920b46f953eefad294a57f4edb7f786b8ee068197a0b073bd5806ce9e05474",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB63BFafB139B9bc62659264A519a9306ABE7D50e",
+      "txHash": "0xbe870052744c534f279437158bde19148b8fc21461f3391c22b47f954041034d",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6ef1a837fC0E75d86CF3E30Ec9D7FDa388b6f5B9",
+      "txHash": "0xea147c0937ebe7a02c9008de26d8fb7c1d931f805981dc4b55a4fbff6ae159b7",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -828,6 +863,341 @@
           "t_uint256": {
             "label": "uint256",
             "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "afe8f1ad80833ec9179f10a68351d28a04a812084430afc29d081252fb57780b": {
+      "address": "0xc92dA2a702ed82e8A9E7D30EdBBBA0561f12ad2C",
+      "txHash": "0x02a959ee5bd1a67bd8e5778bc4a689bed7531769dd679b3028dcd693fa9fa166",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_HASHED_NAME",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_bytes32",
+            "contract": "EIP712Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol:32"
+          },
+          {
+            "label": "_HASHED_VERSION",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_bytes32",
+            "contract": "EIP712Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol:33"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "EIP712Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol:120"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "IGovernorUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/IGovernorUpgradeable.sol:288"
+          },
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "203",
+            "type": "t_string_storage",
+            "contract": "GovernorUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/GovernorUpgradeable.sol:46"
+          },
+          {
+            "label": "_proposals",
+            "offset": 0,
+            "slot": "204",
+            "type": "t_mapping(t_uint256,t_struct(ProposalCore)60_storage)",
+            "contract": "GovernorUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/GovernorUpgradeable.sol:48"
+          },
+          {
+            "label": "_governanceCall",
+            "offset": 0,
+            "slot": "205",
+            "type": "t_struct(Bytes32Deque)4159_storage",
+            "contract": "GovernorUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/GovernorUpgradeable.sol:54"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "207",
+            "type": "t_array(t_uint256)46_storage",
+            "contract": "GovernorUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/GovernorUpgradeable.sol:608"
+          },
+          {
+            "label": "_votingDelay",
+            "offset": 0,
+            "slot": "253",
+            "type": "t_uint256",
+            "contract": "GovernorSettingsUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettingsUpgradeable.sol:15"
+          },
+          {
+            "label": "_votingPeriod",
+            "offset": 0,
+            "slot": "254",
+            "type": "t_uint256",
+            "contract": "GovernorSettingsUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettingsUpgradeable.sol:16"
+          },
+          {
+            "label": "_proposalThreshold",
+            "offset": 0,
+            "slot": "255",
+            "type": "t_uint256",
+            "contract": "GovernorSettingsUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettingsUpgradeable.sol:17"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "256",
+            "type": "t_array(t_uint256)47_storage",
+            "contract": "GovernorSettingsUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettingsUpgradeable.sol:129"
+          },
+          {
+            "label": "_proposalVotes",
+            "offset": 0,
+            "slot": "303",
+            "type": "t_mapping(t_uint256,t_struct(ProposalVote)1672_storage)",
+            "contract": "GovernorCountingSimpleUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorCountingSimpleUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "304",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "GovernorCountingSimpleUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorCountingSimpleUpgradeable.sol:119"
+          },
+          {
+            "label": "token",
+            "offset": 0,
+            "slot": "353",
+            "type": "t_contract(IVotesUpgradeable)2231",
+            "contract": "GovernorVotesUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesUpgradeable.sol:18"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "354",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "GovernorVotesUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesUpgradeable.sol:44"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)46_storage": {
+            "label": "uint256[46]",
+            "numberOfBytes": "1472"
+          },
+          "t_array(t_uint256)47_storage": {
+            "label": "uint256[47]",
+            "numberOfBytes": "1504"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(IVotesUpgradeable)2231": {
+            "label": "contract IVotesUpgradeable",
+            "numberOfBytes": "20"
+          },
+          "t_int128": {
+            "label": "int128",
+            "numberOfBytes": "16"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_int128,t_bytes32)": {
+            "label": "mapping(int128 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(ProposalCore)60_storage)": {
+            "label": "mapping(uint256 => struct GovernorUpgradeable.ProposalCore)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(ProposalVote)1672_storage)": {
+            "label": "mapping(uint256 => struct GovernorCountingSimpleUpgradeable.ProposalVote)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(BlockNumber)3031_storage": {
+            "label": "struct TimersUpgradeable.BlockNumber",
+            "members": [
+              {
+                "label": "_deadline",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(Bytes32Deque)4159_storage": {
+            "label": "struct DoubleEndedQueueUpgradeable.Bytes32Deque",
+            "members": [
+              {
+                "label": "_begin",
+                "type": "t_int128",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_end",
+                "type": "t_int128",
+                "offset": 16,
+                "slot": "0"
+              },
+              {
+                "label": "_data",
+                "type": "t_mapping(t_int128,t_bytes32)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(ProposalCore)60_storage": {
+            "label": "struct GovernorUpgradeable.ProposalCore",
+            "members": [
+              {
+                "label": "voteStart",
+                "type": "t_struct(BlockNumber)3031_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "voteEnd",
+                "type": "t_struct(BlockNumber)3031_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "canceled",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_struct(ProposalVote)1672_storage": {
+            "label": "struct GovernorCountingSimpleUpgradeable.ProposalVote",
+            "members": [
+              {
+                "label": "againstVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "forVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "abstainVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "hasVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
           },
           "t_uint8": {
             "label": "uint8",

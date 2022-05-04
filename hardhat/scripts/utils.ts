@@ -4,8 +4,12 @@ export async function verify(
   contractAddress: string,
   constructorArguments: string[] = []
 ) {
-  return await run("verify:verify", {
-    address: contractAddress,
-    constructorArguments,
-  });
+  try {
+    return await run("verify:verify", {
+      address: contractAddress,
+      constructorArguments,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
