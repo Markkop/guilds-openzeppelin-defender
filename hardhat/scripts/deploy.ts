@@ -1,17 +1,8 @@
-import { ethers, run, upgrades } from "hardhat";
+import { ethers, upgrades } from "hardhat";
+import { verify } from "./utils";
 
 const HERO_NOBOTS_MINTER_RELAYER_ADDRESS = process.env
   .HERO_NOBOTS_MINTER_RELAYER_ADDRESS as string;
-
-async function verify(
-  contractAddress: string,
-  constructorArguments: string[] = []
-) {
-  return await run("verify:verify", {
-    address: contractAddress,
-    constructorArguments,
-  });
-}
 
 async function main() {
   const Hero = await ethers.getContractFactory("Hero");
