@@ -33,7 +33,6 @@ contract Hero is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, 
         bytes memory signature
     ) 
         nonReentrant
-        onlyOwner
         public 
     {
         uint256 tokenId = _tokenIdCounter.current();
