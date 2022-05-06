@@ -6,6 +6,7 @@
     "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
     "verify": "hardhat verify",
     "test:rinkeby": "hardhat test --network rinkeby",
+    "test:localhost": "hardhat test --network localhost",
     "test:gas": "REPORT_GAS=true hardhat test",
     "node": "hardhat node",
     "typechain": "hardhat typechain"

@@ -69,3 +69,20 @@ export async function deploy(
   }
   return contract;
 }
+
+export async function getDeployedContract(
+  contractName: string,
+  contractAddress: string
+) {
+  console.log(`Using ${contractName} from ${contractAddress}`);
+  const Contract = await ethers.getContractFactory(contractName);
+  const contract = Contract.attach(contractAddress);
+  return contract;
+}
+
+export async function deployContracts(relayerAddress: string, verify: boolean) {
+  const hero = await deploy("Hero", [relayerAddress], verify);
+  const guilds = await deploy("Guilds", [], verify);
+  const guildsDAO = await deploy("GuildsDAO", [hero.address], verify);
+  return { hero, guilds, guildsDAO };
+}
