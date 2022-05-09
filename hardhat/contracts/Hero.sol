@@ -42,6 +42,10 @@ contract Hero is ERC721, Ownable, EIP712, ERC721Votes, ReentrancyGuard {
         _safeMint(to, tokenId);
     }
 
+    function getCurrentTokenId() public view returns (uint256){
+        return _tokenIdCounter.current();
+    }
+
     // The following functions are overrides required by Solidity.
 
     function _afterTokenTransfer(address from, address to, uint256 tokenId)
