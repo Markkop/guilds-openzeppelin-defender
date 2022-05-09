@@ -1,3 +1,8 @@
+/**
+ * This script was made by tinchoabbate.
+ * His article is available on the following link:
+ * https://forum.openzeppelin.com/t/human-first-nft-mints/21921
+ */
 const { ethers } = require("ethers");
 const {
   DefenderRelayProvider,
