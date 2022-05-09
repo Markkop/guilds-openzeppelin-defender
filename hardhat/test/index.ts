@@ -7,34 +7,38 @@ import { Guilds, GuildsDAO, Hero } from "../typechain";
 import { DeployedAddresses } from "../types";
 import {
   getDeployedContracts,
-  transferGuildsOwnership,
   proposeCreateGuild,
+  mintNFT,
+  vote,
+  delegateVote,
 } from "./testUtils";
 
-const mockedDefenderAddress = "0x0000000000000000000000000000000000000001";
 const deployedAddresses: DeployedAddresses = {
-  hero: "0xC3FF677A18f8A2903cB8352Ff46D7787D7a31ffb",
+  hero: "0x339b264895a41e0c117bB4cf322DC723E6426118",
   guilds: "0xAe8235A2Ec4f54cf4CBe3219C027940872EbeAf4",
   guildsDAO: "0x9404aA7C83E13748651176119c95A79270d94479",
 };
-const USE_DEPLOYED_CONTRACTS = true;
+const USE_DEPLOYED_CONTRACTS = false;
 
 describe("GuildsDAO", function () {
   this.timeout(600 * 1000);
 
   const VERIFY = network.name === "rinkeby";
-  let account1: SignerWithAddress;
+  let deployer: SignerWithAddress;
+  let relayer: SignerWithAddress;
+  let user: SignerWithAddress;
   let hero: Hero;
   let guilds: Guilds;
   let guildsDAO: GuildsDAO;
 
   this.beforeEach(async () => {
-    [account1] = await ethers.getSigners();
+    [deployer, relayer, user] = await ethers.getSigners();
     let contracts;
-    if (USE_DEPLOYED_CONTRACTS) {
+    const isHardhatNetwork = network.name === "hardhat";
+    if (!isHardhatNetwork && USE_DEPLOYED_CONTRACTS) {
       contracts = await getDeployedContracts(deployedAddresses);
     } else {
-      contracts = await deployContracts(mockedDefenderAddress, VERIFY);
+      contracts = await deployContracts(relayer.address, VERIFY);
     }
     hero = contracts.hero as Hero;
     guilds = contracts.guilds as Guilds;
@@ -42,21 +46,40 @@ describe("GuildsDAO", function () {
   });
 
   it("Should propose a new guild creation", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, account1);
+    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, user);
     await expect(proposeTx).to.not.be.reverted;
   });
 
-  it.only("Should not be able to vote without an NFT", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, account1);
+  it("Should not be able to vote without an NFT", async function () {
+    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, user);
     const eventLog = guildsDAO.interface.parseLog(proposeTx.events![0]);
     const proposeId = eventLog.args[0] as BigNumber;
-    const voteTx = await guildsDAO.castVote(proposeId, 0, {
+    const voteTx = await guildsDAO.connect(user).castVote(proposeId, 0, {
       gasLimit: 3000000,
     });
     await voteTx.wait();
 
     const votes = await guildsDAO.proposalVotes(proposeId);
     expect(votes.againstVotes.toNumber()).to.eql(0);
+    expect(votes.forVotes.toNumber()).to.eql(0);
+    expect(votes.abstainVotes.toNumber()).to.eql(0);
+  });
+
+  it("Shoud mint an NFT", async function () {
+    await mintNFT(user, relayer, hero);
+    expect((await hero.balanceOf(user.address)).toString()).to.eq("1");
+  });
+
+  it("Should vote after minting an NFT", async function () {
+    await mintNFT(user, relayer, hero);
+    await delegateVote(hero, user, user);
+    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, deployer);
+    const eventLog = guildsDAO.interface.parseLog(proposeTx.events![0]);
+    const proposeId = eventLog.args[0] as BigNumber;
+    await vote(guildsDAO, user, proposeId);
+
+    const votes = await guildsDAO.proposalVotes(proposeId);
+    expect(votes.againstVotes.toNumber()).to.eql(1);
     expect(votes.forVotes.toNumber()).to.eql(0);
     expect(votes.abstainVotes.toNumber()).to.eql(0);
   });
