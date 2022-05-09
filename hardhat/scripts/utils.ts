@@ -2,8 +2,9 @@ import { ethers, run, upgrades } from "hardhat";
 
 export async function verify(
   contractAddress: string,
-  constructorArguments: unknown[] = []
-) {
+  constructorArguments: unknown[] = [],
+  tryNumber = 1
+): Promise<any> {
   try {
     return await run("verify:verify", {
       address: contractAddress,
@@ -13,6 +14,11 @@ export async function verify(
     if (error.toString().includes("Reason: Already Verified")) {
       console.log(error.name);
       return;
+    }
+
+    if (error.name.includes("does not have bytecode") && tryNumber <= 3) {
+      console.log(`${error.name}\nTrying again...`);
+      return verify(contractAddress, constructorArguments, tryNumber++);
     }
     console.log(error);
   }
