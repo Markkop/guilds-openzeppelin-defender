@@ -10,7 +10,7 @@ export async function verify(
       constructorArguments,
     });
   } catch (error: any) {
-    if (error.name.includes("Reason: Already Verified")) {
+    if (error.toString().includes("Reason: Already Verified")) {
       console.log(error.name);
       return;
     }
