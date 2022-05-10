@@ -27,6 +27,7 @@ const privateKeys = [
   process.env.PRIVATE_KEY1 !== undefined && process.env.PRIVATE_KEY1,
   process.env.PRIVATE_KEY2 !== undefined && process.env.PRIVATE_KEY2,
   process.env.PRIVATE_KEY3 !== undefined && process.env.PRIVATE_KEY3,
+  process.env.PRIVATE_KEY4 !== undefined && process.env.PRIVATE_KEY4,
 ].filter(Boolean) as string[];
 
 const hasPrivateKeys = Boolean(privateKeys.length);

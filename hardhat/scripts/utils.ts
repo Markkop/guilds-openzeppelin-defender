@@ -86,9 +86,13 @@ export async function getDeployedContract(
   return contract;
 }
 
-export async function deployContracts(relayerAddress: string, verify: boolean) {
-  const hero = await deploy("Hero", [relayerAddress], verify);
-  const guilds = await deploy("Guilds", [], verify);
-  const guildsDAO = await deploy("GuildsDAO", [hero.address], verify);
+export async function deployContracts(
+  relayerAddress: string,
+  autoAttackerAddress: string,
+  verify: boolean
+) {
+  const hero = await deploy("Hero", [relayerAddress], false);
+  const guilds = await deploy("Guilds", [autoAttackerAddress], verify);
+  const guildsDAO = await deploy("GuildsDAO", [hero.address], false);
   return { hero, guilds, guildsDAO };
 }

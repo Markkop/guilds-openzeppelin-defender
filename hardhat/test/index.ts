@@ -20,25 +20,30 @@ const deployedAddresses: DeployedAddresses = {
 };
 const USE_DEPLOYED_CONTRACTS = false;
 
-describe("GuildsDAO", function () {
+describe("Guilds Game", function () {
   this.timeout(600 * 1000);
 
   const VERIFY = network.name === "rinkeby";
   let deployer: SignerWithAddress;
   let relayer: SignerWithAddress;
+  let autoAttacker: SignerWithAddress;
   let user: SignerWithAddress;
   let hero: Hero;
   let guilds: Guilds;
   let guildsDAO: GuildsDAO;
 
   this.beforeEach(async () => {
-    [deployer, relayer, user] = await ethers.getSigners();
+    [deployer, relayer, user, autoAttacker] = await ethers.getSigners();
     let contracts;
     const isHardhatNetwork = network.name === "hardhat";
     if (!isHardhatNetwork && USE_DEPLOYED_CONTRACTS) {
       contracts = await getDeployedContracts(deployedAddresses);
     } else {
-      contracts = await deployContracts(relayer.address, VERIFY);
+      contracts = await deployContracts(
+        relayer.address,
+        autoAttacker.address,
+        VERIFY
+      );
     }
     hero = contracts.hero as Hero;
     guilds = contracts.guilds as Guilds;
@@ -82,5 +87,20 @@ describe("GuildsDAO", function () {
     expect(votes.againstVotes.toNumber()).to.eql(1);
     expect(votes.forVotes.toNumber()).to.eql(0);
     expect(votes.abstainVotes.toNumber()).to.eql(0);
+  });
+
+  it("Should attack a guild", async function () {
+    const guildName = ethers.utils.hexZeroPad(
+      ethers.utils.hexlify(ethers.utils.toUtf8Bytes("MyGuild")),
+      32
+    );
+    const createGuildTx = await guilds.createGuild(guildName, [user.address]);
+    await createGuildTx.wait();
+
+    const attackGuildTx = await guilds.connect(autoAttacker).attackGuild(1);
+    await attackGuildTx.wait();
+
+    const guildLife = await guilds.getGuildLife(1);
+    expect(guildLife.toNumber()).to.eql(9);
   });
 });

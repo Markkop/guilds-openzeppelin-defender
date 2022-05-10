@@ -3,8 +3,15 @@ import { deployContracts } from "./utils";
 const HERO_NOBOTS_MINTER_RELAYER_ADDRESS = process.env
   .HERO_NOBOTS_MINTER_RELAYER_ADDRESS as string;
 
+const AUTO_ATTACKER_RELAYER_ADDRESS = process.env
+  .AUTO_ATTACKER_RELAYER_ADDRESS as string;
+
 async function main() {
-  await deployContracts(HERO_NOBOTS_MINTER_RELAYER_ADDRESS, true);
+  await deployContracts(
+    HERO_NOBOTS_MINTER_RELAYER_ADDRESS,
+    AUTO_ATTACKER_RELAYER_ADDRESS,
+    true
+  );
 }
 
 main().catch((error) => {
