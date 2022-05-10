@@ -7,9 +7,9 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 
-contract GuildsDAO is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
+contract GuildsGovernor is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
     constructor(IVotes _token)
-        Governor("GuildsDAO")
+        Governor("GuildsGovernor")
         GovernorSettings(1 /* 1 block */, 45 /* 10 minute */, 0)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(1)

@@ -2,7 +2,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber } from "ethers";
 import { ethers, network } from "hardhat";
 import { getDeployedContract } from "../scripts/utils";
-import { Guilds, GuildsDAO, Hero } from "../typechain";
+import { Guilds, GuildsGovernor, Hero } from "../typechain";
 import { DeployedAddresses } from "../types";
 
 export async function transferGuildsOwnership(
@@ -17,7 +17,7 @@ export async function transferGuildsOwnership(
 
 export async function proposeCreateGuild(
   guilds: Guilds,
-  guildsDAO: GuildsDAO,
+  guildsGovernor: GuildsGovernor,
   user: SignerWithAddress
 ) {
   const guildName = ethers.utils.hexZeroPad(
@@ -29,7 +29,7 @@ export async function proposeCreateGuild(
     [guildName, [user.address]]
   );
   console.log("Proposing a new guild with createGuild...");
-  const proposeTx = await guildsDAO.propose(
+  const proposeTx = await guildsGovernor.propose(
     [guilds.address],
     [0],
     [encodedFunctionCall],
@@ -54,11 +54,11 @@ export async function getDeployedContracts(
 ) {
   const hero = await getDeployedContract("Hero", deployedAddresses.hero);
   const guilds = await getDeployedContract("Guilds", deployedAddresses.guilds);
-  const guildsDAO = await getDeployedContract(
-    "GuildsDAO",
-    deployedAddresses.guildsDAO
+  const guildsGovernor = await getDeployedContract(
+    "GuildsGovernor",
+    deployedAddresses.guildsGovernor
   );
-  return { hero, guilds, guildsDAO };
+  return { hero, guilds, guildsGovernor };
 }
 
 export async function mintNFT(
@@ -83,12 +83,12 @@ export async function mintNFT(
 }
 
 export async function vote(
-  guildsDAO: GuildsDAO,
+  guildsGovernor: GuildsGovernor,
   user: SignerWithAddress,
   proposeId: BigNumber
 ) {
   console.log(`User ${user.address} is voting...`);
-  const voteTx = await guildsDAO.connect(user).castVote(proposeId, 0, {
+  const voteTx = await guildsGovernor.connect(user).castVote(proposeId, 0, {
     gasLimit: 3000000,
   });
   const isHardhatNetwork = network.name === "hardhat";

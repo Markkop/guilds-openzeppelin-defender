@@ -93,6 +93,6 @@ export async function deployContracts(
 ) {
   const hero = await deploy("Hero", [relayerAddress], false);
   const guilds = await deploy("Guilds", [autoAttackerAddress], verify);
-  const guildsDAO = await deploy("GuildsDAO", [hero.address], false);
-  return { hero, guilds, guildsDAO };
+  const guildsGovernor = await deploy("GuildsGovernor", [hero.address], false);
+  return { hero, guilds, guildsGovernor };
 }

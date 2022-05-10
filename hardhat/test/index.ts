@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { BigNumber } from "ethers";
 import { ethers, network } from "hardhat";
 import { deployContracts } from "../scripts/utils";
-import { Guilds, GuildsDAO, Hero } from "../typechain";
+import { Guilds, GuildsGovernor, Hero } from "../typechain";
 import { DeployedAddresses } from "../types";
 import {
   getDeployedContracts,
@@ -16,7 +16,7 @@ import {
 const deployedAddresses: DeployedAddresses = {
   hero: "0x339b264895a41e0c117bB4cf322DC723E6426118",
   guilds: "0xAe8235A2Ec4f54cf4CBe3219C027940872EbeAf4",
-  guildsDAO: "0x9404aA7C83E13748651176119c95A79270d94479",
+  guildsGovernor: "0x9404aA7C83E13748651176119c95A79270d94479",
 };
 const USE_DEPLOYED_CONTRACTS = false;
 
@@ -30,7 +30,7 @@ describe("Guilds Game", function () {
   let user: SignerWithAddress;
   let hero: Hero;
   let guilds: Guilds;
-  let guildsDAO: GuildsDAO;
+  let guildsGovernor: GuildsGovernor;
 
   this.beforeEach(async () => {
     [deployer, relayer, user, autoAttacker] = await ethers.getSigners();
@@ -47,24 +47,24 @@ describe("Guilds Game", function () {
     }
     hero = contracts.hero as Hero;
     guilds = contracts.guilds as Guilds;
-    guildsDAO = contracts.guildsDAO as GuildsDAO;
+    guildsGovernor = contracts.guildsGovernor as GuildsGovernor;
   });
 
   it("Should propose a new guild creation", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, user);
+    const proposeTx = await proposeCreateGuild(guilds, guildsGovernor, user);
     await expect(proposeTx).to.not.be.reverted;
   });
 
   it("Should not be able to vote without an NFT", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, user);
-    const eventLog = guildsDAO.interface.parseLog(proposeTx.events![0]);
+    const proposeTx = await proposeCreateGuild(guilds, guildsGovernor, user);
+    const eventLog = guildsGovernor.interface.parseLog(proposeTx.events![0]);
     const proposeId = eventLog.args[0] as BigNumber;
-    const voteTx = await guildsDAO.connect(user).castVote(proposeId, 0, {
+    const voteTx = await guildsGovernor.connect(user).castVote(proposeId, 0, {
       gasLimit: 3000000,
     });
     await voteTx.wait();
 
-    const votes = await guildsDAO.proposalVotes(proposeId);
+    const votes = await guildsGovernor.proposalVotes(proposeId);
     expect(votes.againstVotes.toNumber()).to.eql(0);
     expect(votes.forVotes.toNumber()).to.eql(0);
     expect(votes.abstainVotes.toNumber()).to.eql(0);
@@ -78,12 +78,16 @@ describe("Guilds Game", function () {
   it("Should vote after minting an NFT", async function () {
     await mintNFT(user, relayer, hero);
     await delegateVote(hero, user, user);
-    const proposeTx = await proposeCreateGuild(guilds, guildsDAO, deployer);
-    const eventLog = guildsDAO.interface.parseLog(proposeTx.events![0]);
+    const proposeTx = await proposeCreateGuild(
+      guilds,
+      guildsGovernor,
+      deployer
+    );
+    const eventLog = guildsGovernor.interface.parseLog(proposeTx.events![0]);
     const proposeId = eventLog.args[0] as BigNumber;
-    await vote(guildsDAO, user, proposeId);
+    await vote(guildsGovernor, user, proposeId);
 
-    const votes = await guildsDAO.proposalVotes(proposeId);
+    const votes = await guildsGovernor.proposalVotes(proposeId);
     expect(votes.againstVotes.toNumber()).to.eql(1);
     expect(votes.forVotes.toNumber()).to.eql(0);
     expect(votes.abstainVotes.toNumber()).to.eql(0);
