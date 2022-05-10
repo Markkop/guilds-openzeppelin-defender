@@ -7,10 +7,10 @@ import { DeployedAddresses } from "../types";
 
 export async function transferGuildsOwnership(
   guilds: Guilds,
-  guildsDAO: GuildsDAO
+  newOwner: string
 ) {
-  console.log(`Transfering Guilds ownership to ${guildsDAO.address}...`);
-  const transferTx = await guilds.transferOwnership(guildsDAO.address);
+  console.log(`Transfering Guilds ownership to ${newOwner}...`);
+  const transferTx = await guilds.transferOwnership(newOwner);
   await transferTx.wait();
   console.log("Ownership transferred!");
 }
