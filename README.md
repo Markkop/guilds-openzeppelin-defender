@@ -2,7 +2,7 @@
 
 [![https://img.shields.io/static/v1?label=feat.&message=OpenZeppelin%20Defender&color=4e5ee4](https://img.shields.io/static/v1?label=feat.&message=OpenZeppelin%20Defender&color=4e5ee4)](https://www.openzeppelin.com/defender)
 
-This demo project is part of the "Discovering OpenZeppelin Defender features with an NFT Game" blog post where I show how OpenZeppelin Defender can be used to manage a descentralized application.
+This demo project is part of the "[Discovering OpenZeppelin Defender features with an NFT Game](https://dev.to/heymarkkop/discovering-openzeppelin-defender-features-with-an-nft-game-4p0a)" blog post where I show how OpenZeppelin Defender can be used to manage a descentralized application.
 
 ## Features
 
