@@ -51,13 +51,13 @@ describe("Guilds Game", function () {
   });
 
   it("Should propose a new guild creation", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsGovernor, user);
-    await expect(proposeTx).to.not.be.reverted;
+    await expect(proposeCreateGuild(guilds, guildsGovernor, user)).to.not.be
+      .reverted;
   });
 
   it("Should not be able to vote without an NFT", async function () {
-    const proposeTx = await proposeCreateGuild(guilds, guildsGovernor, user);
-    const eventLog = guildsGovernor.interface.parseLog(proposeTx.events![0]);
+    const txReceipt = await proposeCreateGuild(guilds, guildsGovernor, user);
+    const eventLog = guildsGovernor.interface.parseLog(txReceipt.events![0]);
     const proposeId = eventLog.args[0] as BigNumber;
     const voteTx = await guildsGovernor.connect(user).castVote(proposeId, 0, {
       gasLimit: 3000000,
@@ -78,12 +78,12 @@ describe("Guilds Game", function () {
   it("Should vote after minting an NFT", async function () {
     await mintNFT(user, relayer, hero);
     await delegateVote(hero, user, user);
-    const proposeTx = await proposeCreateGuild(
+    const txReceipt = await proposeCreateGuild(
       guilds,
       guildsGovernor,
       deployer
     );
-    const eventLog = guildsGovernor.interface.parseLog(proposeTx.events![0]);
+    const eventLog = guildsGovernor.interface.parseLog(txReceipt.events![0]);
     const proposeId = eventLog.args[0] as BigNumber;
     await vote(guildsGovernor, user, proposeId);
 
